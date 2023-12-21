@@ -1,4 +1,4 @@
-# Lulu's Scrap Anything
+# Scrap Anything
 Break down (almost) any player-craftable object for resources at the same workbench used to create it.
 
 **For best results, this mod should be loaded after any other mod that adds recipes**.

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<LanguageData>
+	<ScrapAnything_BillLabel>disassemble</ScrapAnything_BillLabel>
+	<ScrapAnything_BillDesc>Disassemble things made at this workbench to reclaim some of the resources used.</ScrapAnything_BillDesc>
+	<ScrapAnything_BillJob>Disassembling at {0}.</ScrapAnything_BillJob>
+</LanguageData>

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1169
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuluScrapAnything", "LuluScrapAnything\LuluScrapAnything.csproj", "{D47908ED-06BB-4CC2-A2E4-A3C9B146D4EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapAnything", "ScrapAnything\ScrapAnything.csproj", "{D47908ED-06BB-4CC2-A2E4-A3C9B146D4EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
