@@ -7,8 +7,8 @@
     <ProjectGuid>{D47908ED-06BB-4CC2-A2E4-A3C9B146D4EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LoonyLadle.ScrapAnything</RootNamespace>
-    <AssemblyName>LuluScrapAnything</AssemblyName>
+    <RootNamespace>Cerespirin.ScrapAnything</RootNamespace>
+    <AssemblyName>ScrapAnything</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
