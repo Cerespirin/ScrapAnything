@@ -30,10 +30,10 @@ namespace Cerespirin.ScrapAnything
 
 				RecipeDef generatedRecipe = new RecipeDef
 				{
-					defName = "LuluScrapAnything_DisassembleAt" + workTable.defName,
-					label = "LuluScrapAnything_BillLabel".Translate(),
-					description = "LuluScrapAnything_BillDesc".Translate(),
-					jobString = "LuluScrapAnything_BillJob".Translate(workTable.label),
+					defName = "ScrapAnything_DisassembleAt" + workTable.defName,
+					label = "ScrapAnything_BillLabel".Translate(),
+					description = "ScrapAnything_BillDesc".Translate(),
+					jobString = "ScrapAnything_BillJob".Translate(workTable.label),
 					workAmount = 1600,
 					workSpeedStat = MyDefOf.SmeltingSpeed,
 					effectWorking = tableRecipes.GroupBy(r => r.effectWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
