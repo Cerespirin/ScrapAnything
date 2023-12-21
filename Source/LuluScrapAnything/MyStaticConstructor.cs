@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Verse;
 
-namespace LoonyLadle.ScrapAnything
+namespace Cerespirin.ScrapAnything
 {
 	[StaticConstructorOnStartup]
 	public static class MyStaticConstructor

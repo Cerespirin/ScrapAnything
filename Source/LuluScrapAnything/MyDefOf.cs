@@ -1,7 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 
-namespace LoonyLadle.ScrapAnything
+namespace Cerespirin.ScrapAnything
 {
 	[DefOf]
 	public static class MyDefOf
