@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using HarmonyLib;
+using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,6 +12,9 @@ namespace Cerespirin.ScrapAnything
 	{
 		static MyStaticConstructor()
 		{
+			Harmony harmony = new Harmony("rimworld.cerespirin.bones");
+			harmony.PatchAll();
+
 			IEnumerable<ThingDef> workTables = DefDatabase<ThingDef>.AllDefs.Where(t => t.IsWorkTable);
 			FieldInfo thingDefs = typeof(ThingFilter).GetField("thingDefs", BindingFlags.NonPublic | BindingFlags.Instance);
 			FieldInfo allRecipesCached = typeof(ThingDef).GetField("allRecipesCached", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -38,7 +42,8 @@ namespace Cerespirin.ScrapAnything
 					workSpeedStat = MyDefOf.SmeltingSpeed,
 					effectWorking = tableRecipes.GroupBy(r => r.effectWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
 					soundWorking = tableRecipes.GroupBy(r => r.soundWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
-					specialProducts = new List<SpecialProductType> { SpecialProductType.Smelted },
+					//specialProducts = new List<SpecialProductType> { SpecialProductType.Smelted },
+					modExtensions = new List<DefModExtension> { new ScrapAnythingExt() },
 					recipeUsers = new List<ThingDef> { workTable },
 					ingredients = new List<IngredientCount> { newCount },
 					fixedIngredientFilter = newFilter,
