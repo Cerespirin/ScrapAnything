@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -23,30 +19,15 @@ namespace Cerespirin.ScrapAnything.HarmonyPatches
 			if (recipeDef.HasModExtension<ScrapAnythingExt>())
 			{
 				MethodInfo postProcessProduct = typeof(GenRecipe).GetMethod("PostProcessProduct", BindingFlags.NonPublic | BindingFlags.Static);
-
-				//int num;
-				//for (int i = 0; i < recipeDef.specialProducts.Count; i = num + 1)
-				//foreach (SpecialProductType specialProductType in recipeDef.specialProducts)
 				{
-					//for (int j = 0; j < ingredients.Count; j = num + 1)
 					foreach (Thing thing3 in ingredients)
 					{
-						//Thing thing3 = ingredients[j];
-						//SpecialProductType specialProductType = recipeDef.specialProducts[i];
-						//if (specialProductType != SpecialProductType.Butchery)
+						foreach (Thing product in thing3.SmeltProducts_Old())
 						{
-							//if (specialProductType == SpecialProductType.Smelted)
-							{
-								foreach (Thing product in thing3.SmeltProducts_Old())
-								{
-									//yield return GenRecipe.PostProcessProduct(product, recipeDef, worker, precept, style, overrideGraphicIndex);
-									yield return (Thing)postProcessProduct.Invoke(null, new object[] { product, recipeDef, worker, precept, style, overrideGraphicIndex });
-								}
-							}
+							//yield return GenRecipe.PostProcessProduct(product, recipeDef, worker, precept, style, overrideGraphicIndex);
+							yield return (Thing)postProcessProduct.Invoke(null, new object[] { product, recipeDef, worker, precept, style, overrideGraphicIndex });
 						}
-						//num = j;
 					}
-					//num = i;
 				}
 			}
 		}
