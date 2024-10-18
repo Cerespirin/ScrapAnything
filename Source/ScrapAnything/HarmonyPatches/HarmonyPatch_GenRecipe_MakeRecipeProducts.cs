@@ -26,7 +26,7 @@ namespace Cerespirin.ScrapAnything.HarmonyPatches
 
 				//int num;
 				//for (int i = 0; i < recipeDef.specialProducts.Count; i = num + 1)
-				foreach (SpecialProductType specialProductType in recipeDef.specialProducts)
+				//foreach (SpecialProductType specialProductType in recipeDef.specialProducts)
 				{
 					//for (int j = 0; j < ingredients.Count; j = num + 1)
 					foreach (Thing thing3 in ingredients)
