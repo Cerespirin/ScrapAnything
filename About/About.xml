@@ -6,7 +6,7 @@
 	<description>Break down (almost) any player-craftable object for resources at the same workbench used to create it.
 
 &lt;color=orange&gt;&lt;b&gt;For best results, this mod should be loaded after any other mod that adds recipes.&lt;/b&gt;&lt;/color&gt;</description>
-	<url>https://ludeon.com/forums/index.php?topic=49129</url>
+	<url>https://github.com/Cerespirin/ScrapAnything</url>
 	<supportedVersions>
 		<li>1.4</li>
 		<li>1.5</li>
