@@ -12,7 +12,7 @@ namespace Cerespirin.ScrapAnything
 	{
 		static MyStaticConstructor()
 		{
-			Harmony harmony = new Harmony("rimworld.cerespirin.bones");
+			Harmony harmony = new Harmony("rimworld.cerespirin.scrapanything");
 			harmony.PatchAll();
 
 			IEnumerable<ThingDef> workTables = DefDatabase<ThingDef>.AllDefs.Where(t => t.IsWorkTable);
