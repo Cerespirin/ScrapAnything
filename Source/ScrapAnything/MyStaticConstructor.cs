@@ -20,7 +20,7 @@ namespace Cerespirin.ScrapAnything
 
 			foreach (ThingDef workTable in workTables)
 			{
-				IEnumerable<RecipeDef> tableRecipes = workTable.AllRecipes.Where(r => r.ProducedThingDef?.HasSmeltProducts() ?? false);
+				IEnumerable<RecipeDef> tableRecipes = workTable.AllRecipes.Where(r => r.ProducedThingDef?.EverDisassemblable() ?? false);
 				if (!tableRecipes.Any()) { continue; }
 
 				ThingFilter newFilter = new ThingFilter();

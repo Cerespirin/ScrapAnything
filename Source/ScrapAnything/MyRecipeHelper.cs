@@ -39,7 +39,7 @@ namespace Cerespirin.ScrapAnything
 			yield break;
 		}
 
-		public static bool HasSmeltProducts(this ThingDef def)
+		public static bool EverDisassemblable(this ThingDef def)
 		{
 			if (def.HasComp(typeof(CompRottable)) || (def.costList?.Any(c => c.thingDef.HasComp(typeof(CompRottable))) ?? false))
 			{
