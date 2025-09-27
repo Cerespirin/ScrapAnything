@@ -39,5 +39,26 @@ namespace Cerespirin.ScrapAnything
 			}
 			yield break;
 		}
+
+		public static bool HasSmeltProducts(this ThingDef def)
+		{
+			if (def.HasComp(typeof(CompRottable)) || (def.costList?.Any(c => c.thingDef.HasComp(typeof(CompRottable))) ?? false))
+			{
+				return false;
+			}
+			else if (def.MadeFromStuff)
+			{
+				return true;
+			}
+			else if (def.smeltProducts?.Any() ?? false)
+			{
+				return true;
+			}
+			else if (def.costList?.Where(c => c.thingDef.intricate).Any() ?? false)
+			{
+				return true;
+			}
+			return false;
+		}
 	}
 }
