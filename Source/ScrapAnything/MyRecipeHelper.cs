@@ -6,10 +6,10 @@ namespace Cerespirin.ScrapAnything
 {
 	internal static class MyRecipeHelper
 	{
+		// RimWorld version 1.5 added an additional check which totally destroyed the mod's functionality.
+		// This check was probably added for a reason, so instead bring back the old version for our use.
 		public static IEnumerable<Thing> SmeltProducts_Old(this Thing thisThing)
 		{
-			// RimWorld version 1.5 added an additional check which totally destroyed the mod's functionality.
-			// This check was probably added for a reason, so instead bring back the old version for our use.
 			List<ThingDefCountClass> costListAdj = thisThing.def.CostListAdjusted(thisThing.Stuff);
 			for (int j = 0; j < costListAdj.Count; j++)
 			{
