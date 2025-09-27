@@ -36,7 +36,7 @@ namespace Cerespirin.ScrapAnything
 					label = "ScrapAnything_BillLabel".Translate(),
 					description = "ScrapAnything_BillDesc".Translate(),
 					jobString = "ScrapAnything_BillJob".Translate(workTable.label),
-					workAmount = 1600,
+					workAmount = RecipeDefOf.SmeltOrDestroyThing.smeltingWorkAmount,
 					workSpeedStat = MyDefOf.SmeltingSpeed,
 					effectWorking = tableRecipes.GroupBy(r => r.effectWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
 					soundWorking = tableRecipes.GroupBy(r => r.soundWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
