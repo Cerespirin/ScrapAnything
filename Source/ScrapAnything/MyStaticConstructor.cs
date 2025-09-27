@@ -21,8 +21,7 @@ namespace Cerespirin.ScrapAnything
 			foreach (ThingDef workTable in workTables)
 			{
 				IEnumerable<RecipeDef> tableRecipes = workTable.AllRecipes.Where(r => r.ProducedThingDef?.HasSmeltProducts() ?? false);
-				// If the table has no relevant recipes, no point doing anything else for it.
-				if (!tableRecipes.Any()) continue;
+				if (!tableRecipes.Any()) { continue; }
 
 				ThingFilter newFilter = new ThingFilter();
 				foreach (ThingDef thingDef in tableRecipes.Select(r => r.ProducedThingDef)) { newFilter.SetAllow(thingDef, true); }
