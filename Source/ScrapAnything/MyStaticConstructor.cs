@@ -40,7 +40,6 @@ namespace Cerespirin.ScrapAnything
 					workSpeedStat = MyDefOf.SmeltingSpeed,
 					effectWorking = tableRecipes.GroupBy(r => r.effectWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
 					soundWorking = tableRecipes.GroupBy(r => r.soundWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
-					//specialProducts = new List<SpecialProductType> { SpecialProductType.Smelted },
 					modExtensions = new List<DefModExtension> { new ScrapAnythingExt() },
 					recipeUsers = new List<ThingDef> { workTable },
 					ingredients = new List<IngredientCount> { newCount },
