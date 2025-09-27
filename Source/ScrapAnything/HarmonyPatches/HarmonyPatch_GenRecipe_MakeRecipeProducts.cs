@@ -4,7 +4,7 @@ using HarmonyLib;
 using RimWorld;
 using Verse;
 
-namespace Cerespirin.ScrapAnything.HarmonyPatches
+namespace Cerespirin.ScrapAnything
 {
 	[HarmonyPatch(typeof(GenRecipe), nameof(GenRecipe.MakeRecipeProducts))]
 	public static class HarmonyPatch_GenRecipe_MakeRecipeProducts

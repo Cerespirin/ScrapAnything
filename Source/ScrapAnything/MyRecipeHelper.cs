@@ -2,7 +2,7 @@
 using RimWorld;
 using Verse;
 
-namespace Cerespirin.ScrapAnything.HarmonyPatches
+namespace Cerespirin.ScrapAnything
 {
 	internal static class MyRecipeHelper
 	{
