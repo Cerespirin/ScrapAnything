@@ -20,9 +20,9 @@ namespace Cerespirin.ScrapAnything
 			{
 				MethodInfo postProcessProduct = typeof(GenRecipe).GetMethod("PostProcessProduct", BindingFlags.NonPublic | BindingFlags.Static);
 				{
-					foreach (Thing thing3 in ingredients)
+					foreach (Thing ingredient in ingredients)
 					{
-						foreach (Thing product in thing3.SmeltProducts_Old())
+						foreach (Thing product in ingredient.SmeltProducts_Old())
 						{
 							//yield return GenRecipe.PostProcessProduct(product, recipeDef, worker, precept, style, overrideGraphicIndex);
 							yield return (Thing)postProcessProduct.Invoke(null, new object[] { product, recipeDef, worker, precept, style, overrideGraphicIndex });
