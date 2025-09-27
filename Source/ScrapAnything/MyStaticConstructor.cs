@@ -16,7 +16,6 @@ namespace Cerespirin.ScrapAnything
 			harmony.PatchAll();
 
 			IEnumerable<ThingDef> workTables = DefDatabase<ThingDef>.AllDefs.Where(t => t.IsWorkTable);
-			FieldInfo thingDefs = typeof(ThingFilter).GetField("thingDefs", BindingFlags.NonPublic | BindingFlags.Instance);
 			FieldInfo allRecipesCached = typeof(ThingDef).GetField("allRecipesCached", BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (ThingDef workTable in workTables)
@@ -26,7 +25,7 @@ namespace Cerespirin.ScrapAnything
 				if (!tableRecipes.Any()) continue;
 
 				ThingFilter newFilter = new ThingFilter();
-				thingDefs.SetValue(newFilter, tableRecipes.Select(r => r.ProducedThingDef).ToList());
+				foreach (ThingDef thingDef in tableRecipes.Select(r => r.ProducedThingDef)) { newFilter.SetAllow(thingDef, true); }
 
 				IngredientCount newCount = new IngredientCount();
 				newCount.SetBaseCount(1);
