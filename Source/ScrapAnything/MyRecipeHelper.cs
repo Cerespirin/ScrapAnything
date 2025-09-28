@@ -1,43 +1,63 @@
-﻿using System.Collections.Generic;
-using RimWorld;
+﻿using RimWorld;
+using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
-namespace Cerespirin.ScrapAnything.HarmonyPatches
+namespace Cerespirin.ScrapAnything
 {
 	internal static class MyRecipeHelper
 	{
+		// RimWorld version 1.5 added an additional check which totally destroyed the mod's functionality.
+		// This check was probably added for a reason, so instead bring back the old version for our use.
 		public static IEnumerable<Thing> SmeltProducts_Old(this Thing thisThing)
 		{
-			// RimWorld version 1.5 added an additional check which totally destroyed the mod's functionality.
-			// This check was probably added for a reason, so instead bring back the old version for our use.
-			List<ThingDefCountClass> costListAdj = thisThing.def.CostListAdjusted(thisThing.Stuff, true);
-			int num2;
-			for (int i = 0; i < costListAdj.Count; i = num2 + 1)
+			List<ThingDefCountClass> costListAdj = thisThing.def.CostListAdjusted(thisThing.Stuff);
+			for (int j = 0; j < costListAdj.Count; j++)
 			{
-				if (!costListAdj[i].thingDef.intricate)// && costListAdj[i].thingDef.smeltable)
+				if (!costListAdj[j].thingDef.intricate)
 				{
-					int num = GenMath.RoundRandom((float)costListAdj[i].count * 0.25f);
+					int num = GenMath.RoundRandom((float)costListAdj[j].count * 0.25f);
 					if (num > 0)
 					{
-						Thing thing = ThingMaker.MakeThing(costListAdj[i].thingDef, null);
+						Thing thing = ThingMaker.MakeThing(costListAdj[j].thingDef);
 						thing.stackCount = num;
 						yield return thing;
 					}
 				}
-				num2 = i;
 			}
+
 			if (thisThing.def.smeltProducts != null)
 			{
-				for (int i = 0; i < thisThing.def.smeltProducts.Count; i = num2 + 1)
+				for (int j = 0; j < thisThing.def.smeltProducts.Count; j++)
 				{
-					ThingDefCountClass thingDefCountClass = thisThing.def.smeltProducts[i];
-					Thing thing2 = ThingMaker.MakeThing(thingDefCountClass.thingDef, null);
+					ThingDefCountClass thingDefCountClass = thisThing.def.smeltProducts[j];
+					Thing thing2 = ThingMaker.MakeThing(thingDefCountClass.thingDef);
 					thing2.stackCount = thingDefCountClass.count;
 					yield return thing2;
-					num2 = i;
 				}
 			}
 			yield break;
+		}
+
+		public static bool EverDisassemblable(this ThingDef def)
+		{
+			if (def.HasComp(typeof(CompRottable)) || (def.costList?.Any(c => c.thingDef.HasComp(typeof(CompRottable))) ?? false))
+			{
+				return false;
+			}
+			else if (def.MadeFromStuff)
+			{
+				return true;
+			}
+			else if (def.smeltProducts?.Any() ?? false)
+			{
+				return true;
+			}
+			else if (def.costList?.Where(c => c.thingDef.intricate).Any() ?? false)
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

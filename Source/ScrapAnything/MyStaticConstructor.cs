@@ -12,21 +12,19 @@ namespace Cerespirin.ScrapAnything
 	{
 		static MyStaticConstructor()
 		{
-			Harmony harmony = new Harmony("rimworld.cerespirin.bones");
+			Harmony harmony = new Harmony("rimworld.cerespirin.scrapanything");
 			harmony.PatchAll();
 
 			IEnumerable<ThingDef> workTables = DefDatabase<ThingDef>.AllDefs.Where(t => t.IsWorkTable);
-			FieldInfo thingDefs = typeof(ThingFilter).GetField("thingDefs", BindingFlags.NonPublic | BindingFlags.Instance);
 			FieldInfo allRecipesCached = typeof(ThingDef).GetField("allRecipesCached", BindingFlags.NonPublic | BindingFlags.Instance);
 
 			foreach (ThingDef workTable in workTables)
 			{
-				IEnumerable<RecipeDef> tableRecipes = workTable.AllRecipes.Where(r => r.ProducedThingDef?.HasSmeltProducts() ?? false);
-				// If the table has no relevant recipes, no point doing anything else for it.
-				if (!tableRecipes.Any()) continue;
+				IEnumerable<RecipeDef> tableRecipes = workTable.AllRecipes.Where(r => r.ProducedThingDef?.EverDisassemblable() ?? false);
+				if (!tableRecipes.Any()) { continue; }
 
 				ThingFilter newFilter = new ThingFilter();
-				thingDefs.SetValue(newFilter, tableRecipes.Select(r => r.ProducedThingDef).ToList());
+				foreach (ThingDef thingDef in tableRecipes.Select(r => r.ProducedThingDef)) { newFilter.SetAllow(thingDef, true); }
 
 				IngredientCount newCount = new IngredientCount();
 				newCount.SetBaseCount(1);
@@ -38,11 +36,10 @@ namespace Cerespirin.ScrapAnything
 					label = "ScrapAnything_BillLabel".Translate(),
 					description = "ScrapAnything_BillDesc".Translate(),
 					jobString = "ScrapAnything_BillJob".Translate(workTable.label),
-					workAmount = 1600,
+					workAmount = RecipeDefOf.SmeltOrDestroyThing.smeltingWorkAmount,
 					workSpeedStat = MyDefOf.SmeltingSpeed,
 					effectWorking = tableRecipes.GroupBy(r => r.effectWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
 					soundWorking = tableRecipes.GroupBy(r => r.soundWorking).OrderByDescending(g => g.Count()).Select(o => o.Key).First(),
-					//specialProducts = new List<SpecialProductType> { SpecialProductType.Smelted },
 					modExtensions = new List<DefModExtension> { new ScrapAnythingExt() },
 					recipeUsers = new List<ThingDef> { workTable },
 					ingredients = new List<IngredientCount> { newCount },
@@ -63,30 +60,6 @@ namespace Cerespirin.ScrapAnything
 				DefDatabase<RecipeDef>.Add(generatedRecipe);
 				// Clear the recipe cache because we've added a new recipe.
 				allRecipesCached.SetValue(workTable, null);
-			}
-		}
-
-		private static bool HasSmeltProducts(this ThingDef def)
-		{
-			if (def.HasComp(typeof(CompRottable)) || (def.costList?.Any(c => c.thingDef.HasComp(typeof(CompRottable))) ?? false))
-			{
-				return false;
-			}
-			else if (def.MadeFromStuff)
-			{
-				return true;
-			}
-			else if (def.smeltProducts?.Any() ?? false)
-			{
-				return true;
-			}
-			else if (def.costList?.Select(c => c.thingDef).Where(t => !t.intricate).Any() ?? false)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
 			}
 		}
 	}
