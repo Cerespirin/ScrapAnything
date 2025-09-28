@@ -3,8 +3,9 @@ using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using Verse;
+using System.Linq;
 
-namespace Cerespirin.ScrapAnything.HarmonyPatches
+namespace Cerespirin.ScrapAnything
 {
 	[HarmonyPatch(typeof(GenRecipe), nameof(GenRecipe.MakeRecipeProducts))]
 	public static class HarmonyPatch_GenRecipe_MakeRecipeProducts
@@ -20,13 +21,9 @@ namespace Cerespirin.ScrapAnything.HarmonyPatches
 			{
 				MethodInfo postProcessProduct = typeof(GenRecipe).GetMethod("PostProcessProduct", BindingFlags.NonPublic | BindingFlags.Static);
 				{
-					foreach (Thing thing3 in ingredients)
+					foreach (Thing product in ingredients.SelectMany(ingredient => ingredient.SmeltProducts_Old()))
 					{
-						foreach (Thing product in thing3.SmeltProducts_Old())
-						{
-							//yield return GenRecipe.PostProcessProduct(product, recipeDef, worker, precept, style, overrideGraphicIndex);
-							yield return (Thing)postProcessProduct.Invoke(null, new object[] { product, recipeDef, worker, precept, style, overrideGraphicIndex });
-						}
+						yield return (Thing)postProcessProduct.Invoke(null, new object[] { product, recipeDef, worker, precept, style, overrideGraphicIndex });
 					}
 				}
 			}
